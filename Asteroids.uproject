@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{4113B45C-6D59-4FDF-B98B-7884066B651D}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Asteroids",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
