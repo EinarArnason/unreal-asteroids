@@ -48,12 +48,12 @@ class AAsteroidsPawn : public APawn {
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite,
             meta = (ClampMin = "0.0", ClampMax = "360.0", UIMin = "0.0",
                     UIMax = "360.0"))
-  float rotationSpeed;
+  float RotationSpeed;
 
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite,
             meta = (ClampMin = "0.1", ClampMax = "1.0", UIMin = "0.1",
                     UIMax = "1.0"))
-  float thrustDamping;
+  float ThrustDamping;
 
   /** Sound to play each time we fire */
   UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
@@ -82,8 +82,8 @@ class AAsteroidsPawn : public APawn {
 
   /** Handle for efficient management of ShotTimerExpired timer */
   FTimerHandle TimerHandle_ShotTimerExpired;
-  FVector currentMovement;
-  FRotator currentRotation;
+  FVector CurrentMovement;
+  FRotator CurrentRotation;
 
  public:
   /** Returns ShipMeshComponent subobject **/

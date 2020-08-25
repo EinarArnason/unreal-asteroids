@@ -54,11 +54,11 @@ AAsteroidsPawn::AAsteroidsPawn() {
   // Movement
   MoveSpeed = 80.0f;
   MaxVelocity = 100.0f;
-  thrustDamping = 0.9f;
-  currentMovement = FVector(0.0f, 0.0f, 0.0f);
+  ThrustDamping = 0.9f;
+  CurrentMovement = FVector(0.0f, 0.0f, 0.0f);
   // Rotation
-  rotationSpeed = 330.0f;
-  currentRotation = FRotator(0.0f);
+  RotationSpeed = 330.0f;
+  CurrentRotation = FRotator(0.0f);
   // Weapon
   GunOffset = FVector(90.f, 0.f, 0.f);
   FireRate = 0.1f;
@@ -76,39 +76,39 @@ void AAsteroidsPawn::SetupPlayerInputComponent(
 }
 
 void AAsteroidsPawn::Tick(float DeltaSeconds) {
-  // Find movement direction
+  // Get input values
   const float ForwardValue = GetInputAxisValue(MoveForwardBinding);
   const float RightValue = GetInputAxisValue(MoveRightBinding);
 
-  // Calculate rotation
+  // Calculate a new rotation
   if (RightValue) {
-    currentRotation =
-        currentRotation.Add(0, RightValue * rotationSpeed * DeltaSeconds, 0);
+    CurrentRotation =
+        CurrentRotation.Add(0, RightValue * RotationSpeed * DeltaSeconds, 0);
   }
 
-  // Calculate velocity
+  // Calculate a new velocity
   if (ForwardValue) {
-    currentMovement += currentRotation.Vector().GetUnsafeNormal2D() *
-                       MoveSpeed * thrustDamping * DeltaSeconds;
-    currentMovement = currentMovement.GetClampedToMaxSize2D(MaxVelocity);
+    CurrentMovement += CurrentRotation.Vector().GetUnsafeNormal2D() *
+                       MoveSpeed * ThrustDamping * DeltaSeconds;
+    CurrentMovement = CurrentMovement.GetClampedToMaxSize2D(MaxVelocity);
   }
 
   FHitResult Hit(1.f);
-  RootComponent->MoveComponent(currentMovement, currentRotation, true, &Hit);
+  RootComponent->MoveComponent(CurrentMovement, CurrentRotation, true, &Hit);
 
-  // If non-zero size, move this actor
-  if (currentMovement.SizeSquared() > 0.0f) {
+  // Check for collision if actor is moving
+  if (CurrentMovement.SizeSquared() > 0.0f) {
     if (Hit.IsValidBlockingHit()) {
       const FVector Normal2D = Hit.Normal.GetSafeNormal2D();
-      currentMovement = FVector::VectorPlaneProject(currentMovement, Normal2D) *
+      CurrentMovement = FVector::VectorPlaneProject(CurrentMovement, Normal2D) *
                         (1.f - Hit.Time);
-      RootComponent->MoveComponent(currentMovement, currentRotation, true);
+      RootComponent->MoveComponent(CurrentMovement, CurrentRotation, true);
     }
   }
 
   if (GetInputAxisValue(FireBinding)) {
     // Try and fire a shot
-    FireShot(currentRotation.Vector().GetUnsafeNormal2D());
+    FireShot(CurrentRotation.Vector().GetUnsafeNormal2D());
   }
 }
 
