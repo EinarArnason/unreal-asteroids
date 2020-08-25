@@ -20,7 +20,7 @@ const FName AAsteroidsPawn::FireBinding("Fire");
 
 AAsteroidsPawn::AAsteroidsPawn() {
   static ConstructorHelpers::FObjectFinder<UStaticMesh> ShipMesh(
-      TEXT("/Game/TwinStick/Meshes/TwinStickUFO.TwinStickUFO"));
+      TEXT("/Game/SpaceShip/UAV_Trident.UAV_Trident"));
   // Create the mesh component
   ShipMeshComponent =
       CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ShipMesh"));
