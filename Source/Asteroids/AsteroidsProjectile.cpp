@@ -28,7 +28,7 @@ AAsteroidsProjectile::AAsteroidsProjectile() {
       TEXT("ProjectileMovement0"));
   ProjectileMovement->UpdatedComponent = ProjectileMesh;
   ProjectileMovement->InitialSpeed = 3000.f;
-  ProjectileMovement->MaxSpeed = 3000.f;
+  ProjectileMovement->MaxSpeed = 0.f;
   ProjectileMovement->bRotationFollowsVelocity = true;
   ProjectileMovement->bShouldBounce = false;
   ProjectileMovement->ProjectileGravityScale = 0.f;  // No gravity

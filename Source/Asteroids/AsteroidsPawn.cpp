@@ -60,7 +60,7 @@ AAsteroidsPawn::AAsteroidsPawn() {
   RotationSpeed = 330.0f;
   CurrentRotation = FRotator(0.0f);
   // Weapon
-  GunOffset = FVector(90.f, 0.f, 0.f);
+  GunOffset = FVector(115.f, 0.f, 0.f);
   FireRate = 0.1f;
   bCanFire = true;
 }
@@ -88,10 +88,12 @@ void AAsteroidsPawn::Tick(float DeltaSeconds) {
 
   // Calculate a new velocity
   if (ForwardValue) {
-    CurrentMovement += CurrentRotation.Vector().GetUnsafeNormal2D() *
-                       MoveSpeed * ThrustDamping * DeltaSeconds;
+    CurrentMovement +=
+        CurrentRotation.Vector().GetUnsafeNormal2D() * MoveSpeed * DeltaSeconds;
     CurrentMovement = CurrentMovement.GetClampedToMaxSize2D(MaxVelocity);
   }
+
+  CurrentMovement *= ThrustDamping;
 
   FHitResult Hit(1.f);
   RootComponent->MoveComponent(CurrentMovement, CurrentRotation, true, &Hit);
