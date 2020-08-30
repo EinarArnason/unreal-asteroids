@@ -1,7 +1,12 @@
 {
 	"folders": [
 		{
+			"name": "Asteroids",
 			"path": "."
+		},
+		{
+			"name": "UE4",
+			"path": "/run/media/einar/geymsla/UnrealEngine"
 		}
 	],
 	"settings": {

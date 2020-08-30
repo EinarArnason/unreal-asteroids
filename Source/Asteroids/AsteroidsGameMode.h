@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "AsteroidsGameMode.generated.h"
 
+
 UCLASS(MinimalAPI)
 class AAsteroidsGameMode : public AGameModeBase
 {

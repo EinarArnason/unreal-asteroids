@@ -2,6 +2,7 @@
 
 #include "AsteroidsProjectile.h"
 
+#include "AsteroidsInGameHUD.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -45,6 +46,16 @@ void AAsteroidsProjectile::OnHit(UPrimitiveComponent* HitComp,
   if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) &&
       OtherComp->IsSimulatingPhysics()) {
     OtherComp->AddImpulseAtLocation(GetVelocity() * 20.0f, GetActorLocation());
+    // Get default pawn and add to hit score
+    AAsteroidsPawn* Pawn =
+        Cast<AAsteroidsPawn>(GetWorld()->GetFirstPlayerController()->GetPawn());
+    Pawn->IncrementScore();
+    // Update score on HUD
+    AAsteroidsInGameHUD* InGameHUD = Cast<AAsteroidsInGameHUD>(
+        GetWorld()->GetFirstPlayerController()->GetHUD());
+    if (InGameHUD) {
+      InGameHUD->UpdateScoreCount(Pawn->GetCurrentScore());
+    }
   }
 
   Destroy();

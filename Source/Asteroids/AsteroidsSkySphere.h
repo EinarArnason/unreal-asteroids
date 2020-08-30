@@ -12,7 +12,7 @@ UCLASS(config = Game)
 class AAsteroidsSkySphere : public AActor {
   GENERATED_BODY()
 
-  /** Sphere collision component */
+  // Sphere collision component
   UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = SkySphere,
             meta = (AllowPrivateAccess = "true"))
   UStaticMeshComponent* SkySphereMesh;
@@ -20,7 +20,7 @@ class AAsteroidsSkySphere : public AActor {
  public:
   AAsteroidsSkySphere();
 
-  /** Returns SkySphereMesh subobject **/
+  // Returns SkySphereMesh subobject
   FORCEINLINE UStaticMeshComponent* GetSkySphereMesh() const {
     return SkySphereMesh;
   }

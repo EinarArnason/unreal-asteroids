@@ -63,6 +63,8 @@ AAsteroidsPawn::AAsteroidsPawn() {
   GunOffset = FVector(115.f, 0.f, 0.f);
   FireRate = 0.1f;
   bCanFire = true;
+  // Score
+  Score = 0;
 }
 
 void AAsteroidsPawn::SetupPlayerInputComponent(
@@ -127,7 +129,9 @@ void AAsteroidsPawn::FireShot(FVector FireDirection) {
       UWorld* const World = GetWorld();
       if (World != NULL) {
         // spawn the projectile
-        World->SpawnActor<AAsteroidsProjectile>(SpawnLocation, FireRotation);
+        AAsteroidsProjectile* projectile =
+            World->SpawnActor<AAsteroidsProjectile>(SpawnLocation,
+                                                    FireRotation);
       }
 
       bCanFire = false;
@@ -147,3 +151,6 @@ void AAsteroidsPawn::FireShot(FVector FireDirection) {
 }
 
 void AAsteroidsPawn::ShotTimerExpired() { bCanFire = true; }
+
+int AAsteroidsPawn::GetCurrentScore() const { return Score; }
+void AAsteroidsPawn::IncrementScore() { Score++; }

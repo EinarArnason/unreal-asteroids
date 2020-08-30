@@ -11,17 +11,17 @@ UCLASS(Blueprintable)
 class AAsteroidsPawn : public APawn {
   GENERATED_BODY()
 
-  /* The mesh component */
+  // The mesh component
   UPROPERTY(Category = Mesh, VisibleDefaultsOnly, BlueprintReadOnly,
             meta = (AllowPrivateAccess = "true"))
   class UStaticMeshComponent* ShipMeshComponent;
 
-  /** The camera */
+  // The camera
   UPROPERTY(Category = Camera, VisibleAnywhere, BlueprintReadOnly,
             meta = (AllowPrivateAccess = "true"))
   class UCameraComponent* CameraComponent;
 
-  /** Camera boom positioning the camera above the character */
+  // Camera boom positioning the camera above the character
   UPROPERTY(Category = Camera, VisibleAnywhere, BlueprintReadOnly,
             meta = (AllowPrivateAccess = "true"))
   class USpringArmComponent* CameraBoom;
@@ -29,19 +29,19 @@ class AAsteroidsPawn : public APawn {
  public:
   AAsteroidsPawn();
 
-  /** Offset from the ships location to spawn projectiles */
+  // Offset from the ships location to spawn projectiles
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
   FVector GunOffset;
 
-  /* How fast the weapon will fire */
+  // How fast the weapon will fire
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
   float FireRate;
 
-  /* The speed our ship moves around the level */
+  // The speed our ship moves around the level
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
   float MoveSpeed;
 
-  /* The speed our ship moves around the level */
+  // The speed our ship moves around the level
   UPROPERTY(Category = Gameplay, EditAnywhere, BlueprintReadWrite)
   float MaxVelocity;
 
@@ -55,7 +55,7 @@ class AAsteroidsPawn : public APawn {
                     UIMax = "1.0"))
   float ThrustDamping;
 
-  /** Sound to play each time we fire */
+  // Sound to play each time we fire
   UPROPERTY(Category = Audio, EditAnywhere, BlueprintReadWrite)
   class USoundBase* FireSound;
 
@@ -65,11 +65,14 @@ class AAsteroidsPawn : public APawn {
       class UInputComponent* InputComponent) override;
   // End Actor Interface
 
-  /* Fire a shot in the specified direction */
+  // Fire a shot in the specified direction
   void FireShot(FVector FireDirection);
 
-  /* Handler for the fire timer expiry */
+  // Handler for the fire timer expiry
   void ShotTimerExpired();
+
+  int GetCurrentScore() const;
+  void IncrementScore();
 
   // Static names for axis bindings
   static const FName MoveForwardBinding;
@@ -77,24 +80,27 @@ class AAsteroidsPawn : public APawn {
   static const FName FireBinding;
 
  private:
-  /* Flag to control firing  */
+  // Flag to control firing
   uint32 bCanFire : 1;
 
-  /** Handle for efficient management of ShotTimerExpired timer */
+  // Handle for efficient management of ShotTimerExpired timer
   FTimerHandle TimerHandle_ShotTimerExpired;
   FVector CurrentMovement;
   FRotator CurrentRotation;
 
+  // Score
+  int Score;
+
  public:
-  /** Returns ShipMeshComponent subobject **/
+  // Returns ShipMeshComponent subobject **/
   FORCEINLINE class UStaticMeshComponent* GetShipMeshComponent() const {
     return ShipMeshComponent;
   }
-  /** Returns CameraComponent subobject **/
+  // Returns CameraComponent subobject **/
   FORCEINLINE class UCameraComponent* GetCameraComponent() const {
     return CameraComponent;
   }
-  /** Returns CameraBoom subobject **/
+  // Returns CameraBoom subobject **/
   FORCEINLINE class USpringArmComponent* GetCameraBoom() const {
     return CameraBoom;
   }
